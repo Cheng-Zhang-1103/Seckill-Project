@@ -1,0 +1,70 @@
+spring:
+  thymeleaf:
+    cache: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/seckill?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: asdhgf@0000
+    hikari:
+      pool-name: DateHiKariCP
+      minimum-idle: 5
+      idle-timeout: 1800000
+      maximum-pool-size: 10
+      auto-commit: true
+      max-lifetime: 1800000
+      connection-timeout: 3000
+      connection-test-query: SELECT 1
+
+  redis:
+    host: 0.0.0.0
+    port: 6379
+    database: 0
+    timeout: 10000ms
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: 10000ms
+        max-idle: 200
+        min-idle: 5
+  rabbitmq:
+    host: 0.0.0.0
+    username: guest
+    password: guest
+    virtual-host: /
+    port: 5672
+    listener:
+      simple:
+        concurrency: 10
+        max-concurrency: 10
+        #        Limit consumers to processing one message at a time
+        prefetch: 1
+        auto-startup: true
+        default-requeue-rejected: true
+    template:
+      retry:
+        enabled: true
+        initial-interval: 1000ms
+        max-attempts: 3
+        max-interval: 100000ms
+        multiplier: 1
+
+
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+  #  Configuration alias
+  type-aliases-package: com.boshen.seckill.pojo
+
+
+
+#mybatis-plus:
+#  mapper-locations: classpath*:/mapper/*Mapper.xml
+#  type-aliases-package: com.boshen.seckill.pojo
+
+logging:
+  level:
+    com.boshen.seckill.mapper: debug
+
+server:
+  port: 8097
